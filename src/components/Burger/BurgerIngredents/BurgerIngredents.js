@@ -35,20 +35,15 @@ class BurgerIngredents extends Component {
             default:
                 ingredents = null;
 
-            return ingredents;
+            
         }
 
-
-        return (
-            <div>
-                
-            </div>
-        );
+        return ingredents;
     }
 }
 
 
-BurgerIngredents.prototype = {
+BurgerIngredents.propTypes = {
     type: PropTypes.string.isRequired
 }
 
