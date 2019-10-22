@@ -19,7 +19,8 @@ class BurgerBuilder extends Component {
             meat:0,
             cheese:0,
         },
-        price: 10
+        price: 10,
+        purchasable : false,
     }
 
     // Binding Methods
@@ -42,6 +43,7 @@ class BurgerBuilder extends Component {
             ingredents: updatedIngredents,
             price: currentPrice
         })
+        this.updatePurchaseStatus(updatedIngredents)
     }
     
     decreaseIngredents = (type) => {
@@ -62,9 +64,23 @@ class BurgerBuilder extends Component {
             ingredents: updatedIngredents,
             price: currentPrice
         })
+        this.updatePurchaseStatus(updatedIngredents)
     }
 
     
+    updatePurchaseStatus(ingredents) {
+        const total = 
+            Object.keys(ingredents)
+                .map(ingredent => {
+                    return ingredents[ingredent]
+                })
+                .reduce((total,element) => {
+                    return total + element;
+                },0)
+        this.setState({purchasable: total > 0})
+
+    }
+
     render() {
         let disabledInfo = {...this.state.ingredents};
         for(let key in disabledInfo) {
@@ -80,6 +96,7 @@ class BurgerBuilder extends Component {
                     decrease = {this.decreaseIngredents}
                     disabled = {disabledInfo}
                     price = {this.state.price}
+                    purchasable ={this.state.purchasable}
                 />
             </Aux>
         )
