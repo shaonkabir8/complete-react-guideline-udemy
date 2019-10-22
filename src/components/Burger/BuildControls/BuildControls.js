@@ -2,26 +2,27 @@ import React from 'react';
 import classes from './BuildControls.css';
 import Buildcontrol from './BuildControl/BuildControl'
 
-// const buildControls = (props) => (
-    
-//     <div className={classes.Control}>
-//         <Buildcontrol lebel="All content are empty now" />
-//     </div>
-// );
+const controls = [
+    { lebel: 'Salad', type: 'salad' },
+    { lebel: 'Cheese', type: 'cheese' },
+    { lebel: 'Bacon', type: 'bacon' },
+    { lebel: 'Meat', type: 'meat' },
+]
 
-class buildControls extends React.Component {
-    render() {
-        let lebelText = Object.keys(this.props.lebel).map(item => {
-            return <li key={item}>{item}</li>;
-        })
-        console.log(lebelText)
-        return(
-            <div className={classes.Control}>
-                <Buildcontrol lebel={lebelText} />
-            </div>
-        )
-    }
-}
+const buildControls = (props) => (
+    
+    <div className={classes.Control}>
+        {controls.map((control,key) => {
+            return <Buildcontrol 
+                key={key} 
+                lebel={control.lebel}  
+                increase={() => props.increase(control.type)}
+                decrease={() => props.decrease(control.type)}
+            />
+        })}
+    </div>
+);
+
 
 
 export default buildControls;
