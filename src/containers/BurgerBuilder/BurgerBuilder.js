@@ -5,10 +5,10 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 
 
 const INGREDENTS_PRICE = {
-    salad: 10,
-    bacon: 20,
-    meat: 22,
-    cheese: 10
+    salad: 5,
+    bacon: 8,
+    meat: 20,
+    cheese: 5
 }
 
 class BurgerBuilder extends Component {
@@ -19,7 +19,7 @@ class BurgerBuilder extends Component {
             meat:0,
             cheese:0,
         },
-        price: 40
+        price: 10
     }
 
     // Binding Methods
@@ -79,6 +79,7 @@ class BurgerBuilder extends Component {
                     increase = {this.increaseIngredents}
                     decrease = {this.decreaseIngredents}
                     disabled = {disabledInfo}
+                    price = {this.state.price}
                 />
             </Aux>
         )
