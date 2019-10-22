@@ -46,6 +46,9 @@ class BurgerBuilder extends Component {
     
     decreaseIngredents = (type) => {
         const oldCount = this.state.ingredents[type];
+        if(oldCount <= 0) {
+            return;
+        }
         const updatedCount = oldCount - 1;
         const updatedIngredents = {
             ...this.state.ingredents
@@ -63,6 +66,11 @@ class BurgerBuilder extends Component {
 
     
     render() {
+        let disabledInfo = {...this.state.ingredents};
+        for(let key in disabledInfo) {
+            disabledInfo[key] = disabledInfo[key] <= 0
+        }
+
         return (
             <Aux>
                 <Burger ingredents={this.state.ingredents} />
@@ -70,6 +78,7 @@ class BurgerBuilder extends Component {
                     lebel={this.state.ingredents} 
                     increase = {this.increaseIngredents}
                     decrease = {this.decreaseIngredents}
+                    disabled = {disabledInfo}
                 />
             </Aux>
         )

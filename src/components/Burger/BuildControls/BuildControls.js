@@ -18,6 +18,7 @@ const buildControls = (props) => (
                 lebel={control.lebel}  
                 increase={() => props.increase(control.type)}
                 decrease={() => props.decrease(control.type)}
+                disabled = {props.disabled[control.type]}
             />
         })}
     </div>
