@@ -5,7 +5,7 @@ import classes from './BurgerIngredents.css';
 
 class BurgerIngredents extends Component {
     
-    
+
     render() {
         let ingredents = null; 
 
