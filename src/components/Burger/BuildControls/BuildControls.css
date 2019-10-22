@@ -1,0 +1,10 @@
+.Control {
+    width:100%;
+    background: #cf8f2e;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin:auto;
+    padding:10px 0;
+    box-shadow: 0 2px 1px #ccc;
+}
