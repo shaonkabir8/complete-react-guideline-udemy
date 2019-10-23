@@ -22,6 +22,7 @@ class BurgerBuilder extends Component {
         },
         price: 10,
         purchasable : false,
+        purchasing: false,
     }
 
     // Binding Methods
@@ -82,6 +83,15 @@ class BurgerBuilder extends Component {
 
     }
 
+    // Purchasing Order Button
+    purchasHandler = () => {
+        this.setState({purchasing: true})
+    }
+
+    cancelPurchase = () => {
+        this.setState({purchasing: false})
+    }
+
     render() {
         let disabledInfo = {...this.state.ingredents};
         for(let key in disabledInfo) {
@@ -90,7 +100,7 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                <Modal>
+                <Modal show={this.state.purchasing} close={this.cancelPurchase}>
                     <OderSummery ingredents={this.state.ingredents} />
                 </Modal>
                 <Burger ingredents={this.state.ingredents} />
@@ -101,6 +111,7 @@ class BurgerBuilder extends Component {
                     disabled = {disabledInfo}
                     price = {this.state.price}
                     purchasable ={this.state.purchasable}
+                    order = {this.purchasHandler}
                 />
             </Aux>
         )
