@@ -107,7 +107,8 @@ class BurgerBuilder extends Component {
                     <OderSummery
                         ingredents={this.state.ingredents} 
                         close={this.cancelPurchase}
-                        continue={this.continuePurchase}/>
+                        continue={this.continuePurchase}
+                        price={this.state.price}/>
                 </Modal>
                 <Burger ingredents={this.state.ingredents} />
                 <BuildControls 
