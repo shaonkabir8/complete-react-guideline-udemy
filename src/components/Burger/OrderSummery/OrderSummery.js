@@ -1,5 +1,6 @@
 import React from 'react';
 import Aux from '../../../hoc/Auxx'
+import Button from '../../UI/Button/Button'
 
 const orderSummery = (props) => {
     const orderIngredents = Object.keys(props.ingredents).map((ingredent, index) => {
@@ -14,6 +15,9 @@ const orderSummery = (props) => {
             <ul>
                 {orderIngredents}
             </ul>
+            <p>Continue checkout ?</p>
+            <Button btnType='Danger'> Cancel </Button>
+            <Button btnType='Success'> Checkout </Button>
         </Aux>
     )
 };
