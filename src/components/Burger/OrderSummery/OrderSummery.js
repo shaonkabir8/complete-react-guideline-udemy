@@ -16,8 +16,8 @@ const orderSummery = (props) => {
                 {orderIngredents}
             </ul>
             <p>Continue checkout ?</p>
-            <Button btnType='Danger'> Cancel </Button>
-            <Button btnType='Success'> Checkout </Button>
+            <Button btnType='Danger' clicked={props.close}> Cancel </Button>
+            <Button btnType='Success' clicked={props.continue}> Checkout </Button>
         </Aux>
     )
 };
