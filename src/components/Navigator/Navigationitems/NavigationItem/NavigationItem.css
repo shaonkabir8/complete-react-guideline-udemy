@@ -1,0 +1,26 @@
+.Item {
+    margin:0;
+    padding:0;
+    list-style:none;
+    height: 100%;
+    display:flex;
+    align-items: center;
+}
+
+.Item a {
+    display: block;
+    height: 100%;
+    color:#fff;
+    padding:16px 10px;
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.Item a:hover,
+.Item a:active,
+.Item a.active {
+    border-color: #8f5c2c;
+    border-bottom: 4px solid #40a4c8;
+    transition: all .3s linear;
+}
