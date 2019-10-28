@@ -9,6 +9,7 @@ class Blog extends Component {
 
     state = {
         posts: [],
+        selectedId: null,
     }
 
     // fetching data from jsonplaceholder
@@ -28,16 +29,26 @@ class Blog extends Component {
             .catch(error => console.log(error))
     }
 
+    selectPostHandler = id => {
+        this.setState({selectedId: id})
+    }
+
     render () {
         return (
             <div>
                 <section className="Posts">
                    {this.state.posts.map(post => {
-                      return <Post key={post.id} title={post.title} author={post.author} />
+                      return <Post 
+                                key={post.id} 
+                                title={post.title} 
+                                author={post.author} 
+                                clicked={() => this.selectPostHandler(post.id)}/>
                    })}
                 </section>
                 <section>
-                    <FullPost />
+                    <FullPost 
+                        id={this.state.selectedId}
+                        posts={this.state.posts} />
                 </section>
                 <section>
                     <NewPost />
