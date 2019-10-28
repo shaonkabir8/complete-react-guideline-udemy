@@ -10,6 +10,7 @@ class Blog extends Component {
     state = {
         posts: [],
         selectedId: null,
+        error: false
     }
 
     // fetching data from jsonplaceholder
@@ -26,7 +27,10 @@ class Blog extends Component {
                 });
                 this.setState({posts: updatedPost})
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                this.setState({error: true});
+                console.log(error)
+            })
     }
 
     selectPostHandler = id => {
@@ -34,16 +38,21 @@ class Blog extends Component {
     }
 
     render () {
+        let posts = <p style={{textAlign: "center", color: 'red'}}>Something went wrong !!</p>
+        // check if no error occour,
+        if(!this.state.error) {
+            posts = this.state.posts.map(post => {
+                return <Post 
+                          key={post.id} 
+                          title={post.title} 
+                          author={post.author} 
+                          clicked={() => this.selectPostHandler(post.id)}/>
+             })
+        }
         return (
             <div>
                 <section className="Posts">
-                   {this.state.posts.map(post => {
-                      return <Post 
-                                key={post.id} 
-                                title={post.title} 
-                                author={post.author} 
-                                clicked={() => this.selectPostHandler(post.id)}/>
-                   })}
+                   {posts}
                 </section>
                 <section>
                     <FullPost 
