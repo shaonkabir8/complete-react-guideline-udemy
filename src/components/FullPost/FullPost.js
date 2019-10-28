@@ -1,30 +1,45 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 import './FullPost.css';
 
 class FullPost extends Component {
 
+    state = {
+        loadedPost: null,
+    }
+
+    componentDidUpdate() {
+        // check if unique id is available
+        if(this.props.id) {
+            // check if DOM isn't loading and loadedId !== ourId
+            if(!this.state.loadedPost || (this.props.id && this.props.id !== this.state.loadedPost.id)) {
+                axios
+                .get(`https://jsonplaceholder.typicode.com/posts/${this.props.id}`)
+                .then(res => {
+                    this.setState({loadedPost: res.data})
+                })
+            }
+        }
+    }
+
     render () {
         let post = <p style={{textAlign:"center"}}><strong>Please select a Post!</strong></p>;
-        // grab the props and destructure them
-        const {id, posts} = this.props;
 
-        // check if post have a unique id and display the data through looping
-        if(id) {
-            posts.map(singlePost => {
-                return (
-                    post = (
-                        <div className="FullPost">
-                            <h1>{singlePost.title}</h1>
-                            <p>{singlePost.body}</p>
-                            <div className="Edit">
-                                <button className="Delete">Delete</button>
-                            </div>
-                        </div>
-                    )
-                )
-            })
-              
+        // check if post have a unique id
+        if(this.props.id) {
+            post = <p style={{textAlign:"center"}}><strong>Loading.......</strong></p>;
+        }
+        // check if state is loaded with real data
+        if(this.state.loadedPost) {
+            post = (
+                <div className="FullPost">
+                    <h1>{this.state.loadedPost.title}</h1>
+                    <p>{this.state.loadedPost.body}</p>
+                    <div className="Edit">
+                        <button className="Delete" onClick={this.props.delete}>Delete</button>
+                    </div>
+                </div>
+            )
         }
         return post;
     }
