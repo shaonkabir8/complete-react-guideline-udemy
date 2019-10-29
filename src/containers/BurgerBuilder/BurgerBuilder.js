@@ -5,6 +5,8 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal';
 import OderSummery from '../../components/Burger/OrderSummery/OrderSummery';
+import Spinner from '../../components/UI/Spinner/Spinner';
+
 
 const INGREDENTS_PRICE = {
     salad: 5,
@@ -24,6 +26,7 @@ class BurgerBuilder extends Component {
         price: 10,
         purchasable : false,
         purchasing: false,
+        loading: false,
     }
 
 
@@ -89,6 +92,8 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false})
     }
     continuePurchase = () => {
+        // set 'loading' fasle to display Loader
+        this.setState({loading: true})
         // sending order summery to firebase server
         const order = {
             ingredents: this.state.ingredents,
@@ -108,7 +113,8 @@ class BurgerBuilder extends Component {
         }
         // send data to firebase as 'orders.json'
         axios.post('/orders.json',order )
-            .then(res => console.log(res));
+            .then(res => this.setState({loading: false, purchasing: false}))
+            .catch(error => this.setState({loading: false, purchasing: false}))
     }
 
     render() {
@@ -117,14 +123,21 @@ class BurgerBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
 
+        // initial order summery markup
+        let OrderSummery = <OderSummery
+            ingredents={this.state.ingredents} 
+            close={this.cancelPurchase}
+            continue={this.continuePurchase}
+            price={this.state.price}/>
+        // check if DOM is loading,
+        if(this.state.loading) {
+            OrderSummery = <Spinner />
+        }
+
         return (
             <Aux>
                 <Modal show={this.state.purchasing} close={this.cancelPurchase}>
-                    <OderSummery
-                        ingredents={this.state.ingredents} 
-                        close={this.cancelPurchase}
-                        continue={this.continuePurchase}
-                        price={this.state.price}/>
+                    {OrderSummery}
                 </Modal>
                 <Burger ingredents={this.state.ingredents} />
                 <BuildControls 
