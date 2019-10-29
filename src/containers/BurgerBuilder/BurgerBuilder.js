@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from '../../axios-orders'
 import Aux from '../../hoc/Auxx'
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
@@ -24,10 +25,6 @@ class BurgerBuilder extends Component {
         purchasable : false,
         purchasing: false,
     }
-
-    // Binding Methods
-    // increaseIngredents = this.increaseIngredents.bind(this)
-    // decreaseIngredents = this.decreaseIngredents.bind(this)
 
 
     increaseIngredents = (type) => {
@@ -92,12 +89,31 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false})
     }
     continuePurchase = () => {
-        alert('Congrats ! You decided to continue.')
+        // sending order summery to firebase server
+        const order = {
+            ingredents: this.state.ingredents,
+            price: this.state.price,
+            customer: {
+                name: 'Shaon Kabir',
+                address: {
+                    street: 'Baganchara College road',
+                    dist: 'Jashore',
+                    country: 'Bangladesh',
+                    zipCode: 7433,
+                },
+                email: 'shaonkabir98@gmail.com',
+                phone: +8801916380678,
+            },
+            deliveryMethod: 'express/fastest',
+        }
+        // send data to firebase as 'orders.json'
+        axios.post('/orders.json',order )
+            .then(res => console.log(res));
     }
 
     render() {
         let disabledInfo = {...this.state.ingredents};
-        for(let key in disabledInfo) {
+        for(var key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
 
