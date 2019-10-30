@@ -23,6 +23,7 @@ class BurgerBuilder extends Component {
         purchasable : false,
         purchasing: false,
         loading: false,
+        error: false,
     }
 
 
@@ -118,7 +119,8 @@ class BurgerBuilder extends Component {
         axios.get('https://burger-builder-84ff5.firebaseio.com/ingredents.json')
             .then(res => {
                 this.setState({ingredents: res.data})
-            });
+            })
+            .catch(error => this.setState({error: true}));
     }
 
 
@@ -132,7 +134,7 @@ class BurgerBuilder extends Component {
         let OrderSummery =  <Spinner />
         
         // if no ingrendts found, spinner will be available
-        let burger = <Spinner />
+        let burger = this.state.error ? <p style={{textAlign: "center",marginTop: '100px', color: 'red', fontWeight: 'bold'}}>ingredents can't be loaded.. Something went wrong !</p> : <Spinner />
         // checking if ingredents rendered from server
         if(this.state.ingredents) {
             burger = (
