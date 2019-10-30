@@ -18,12 +18,7 @@ const INGREDENTS_PRICE = {
 
 class BurgerBuilder extends Component {
     state = {
-        ingredents : {
-            salad: 0,
-            bacon: 0,
-            meat:0,
-            cheese:0,
-        },
+        ingredents : null,
         price: 10,
         purchasable : false,
         purchasing: false,
@@ -113,10 +108,19 @@ class BurgerBuilder extends Component {
             deliveryMethod: 'express/fastest',
         }
         // send data to firebase as 'orders.json'
-        axios.post('/orders',order )
+        axios.post('/orders.json',order )
             .then(res => this.setState({loading: false, purchasing: false}))
             .catch(error => this.setState({loading: false, purchasing: false}))
     }
+
+    // fetching ingredents data from server
+    componentDidMount() {
+        axios.get('https://burger-builder-84ff5.firebaseio.com/ingredents.json')
+            .then(res => {
+                this.setState({ingredents: res.data})
+            });
+    }
+
 
     render() {
         let disabledInfo = {...this.state.ingredents};
@@ -125,21 +129,14 @@ class BurgerBuilder extends Component {
         }
 
         // initial order summery markup
-        let OrderSummery = <OderSummery
-            ingredents={this.state.ingredents} 
-            close={this.cancelPurchase}
-            continue={this.continuePurchase}
-            price={this.state.price}/>
-        // check if DOM is loading,
-        if(this.state.loading) {
-            OrderSummery = <Spinner />
-        }
-
-        return (
-            <Aux>
-                <Modal show={this.state.purchasing} close={this.cancelPurchase}>
-                    {OrderSummery}
-                </Modal>
+        let OrderSummery =  <Spinner />
+        
+        // if no ingrendts found, spinner will be available
+        let burger = <Spinner />
+        // checking if ingredents rendered from server
+        if(this.state.ingredents) {
+            burger = (
+                <Aux >
                 <Burger ingredents={this.state.ingredents} />
                 <BuildControls 
                     lebel={this.state.ingredents} 
@@ -150,6 +147,27 @@ class BurgerBuilder extends Component {
                     purchasable ={this.state.purchasable}
                     order = {this.purchasHandler}
                 />
+            </Aux>
+            );
+
+            OrderSummery = <OderSummery
+                ingredents={this.state.ingredents} 
+                close={this.cancelPurchase}
+                continue={this.continuePurchase}
+                price={this.state.price}/>
+            // check if DOM is loading,
+            if(this.state.loading) {
+                OrderSummery = <Spinner />
+            }
+
+        }
+
+        return (
+            <Aux>
+                <Modal show={this.state.purchasing} close={this.cancelPurchase}>
+                    {OrderSummery}
+                </Modal>
+                {burger}
             </Aux>
         )
     }
