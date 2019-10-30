@@ -41,3 +41,11 @@
     color:red;
     transition: all .3s linear;
 }
+
+
+.MainBlog header {
+    position: fixed;
+    left: 0;
+    top:0;
+    width:100%
+}
