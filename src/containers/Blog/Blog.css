@@ -5,3 +5,39 @@
     width: 80%;
     margin: auto;
 }
+.Logo {
+    float: left;
+    width:20%;
+    background-color: black;
+}
+.Logo a {
+    display:block;
+    padding:10px;
+    text-decoration: none;
+    color:#fff;
+    font-weight: 700;
+}
+.Nav ul {
+    float: right;
+    margin:0;
+    padding: 0;
+    list-style: none;
+    width:80%;
+    text-align: right;
+    background-color: black;
+}
+.Nav li {
+    display: inline-block;
+}
+.Nav li a {
+    display:block;
+    color:#fff;
+    text-decoration: none;
+    padding:10px;
+}
+.Nav a:hover,
+.Nav a.active,
+.Logo a:hover  {
+    color:red;
+    transition: all .3s linear;
+}
