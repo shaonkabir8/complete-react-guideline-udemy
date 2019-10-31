@@ -5,25 +5,13 @@
     width: 80%;
     margin: auto;
 }
-.Logo {
-    float: left;
-    width:20%;
-    background-color: black;
-}
-.Logo a {
-    display:block;
-    padding:10px;
-    text-decoration: none;
-    color:#fff;
-    font-weight: 700;
-}
+
 .Nav ul {
-    float: right;
     margin:0;
     padding: 0;
     list-style: none;
-    width:80%;
-    text-align: right;
+    width:100%;
+    text-align: center;
     background-color: black;
 }
 .Nav li {
@@ -36,16 +24,8 @@
     padding:10px;
 }
 .Nav a:hover,
-.Nav a.active,
-.Logo a:hover  {
+.Nav a.active  {
     color:red;
     transition: all .3s linear;
 }
 
-
-.MainBlog header {
-    position: fixed;
-    left: 0;
-    top:0;
-    width:100%
-}
