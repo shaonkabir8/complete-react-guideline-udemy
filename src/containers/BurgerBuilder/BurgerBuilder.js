@@ -89,31 +89,6 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false})
     }
     continuePurchase = () => {
-        // set 'loading' fasle to display Loader
-        // this.setState({loading: true})
-        // sending order summery to firebase server
-        // const order = {
-        //     ingredents: this.state.ingredents,
-        //     price: this.state.price,
-        //     customer: {
-        //         name: 'Shaon Kabir',
-        //         address: {
-        //             street: 'Baganchara College road',
-        //             dist: 'Jashore',
-        //             country: 'Bangladesh',
-        //             zipCode: 7433,
-        //         },
-        //         email: 'shaonkabir98@gmail.com',
-        //         phone: +8801916380678,
-        //     },
-        //     deliveryMethod: 'express/fastest',
-        // }
-        // // send data to firebase as 'orders.json'
-        // axios.post('/orders.json',order )
-        //     .then(res => this.setState({loading: false, purchasing: false}))
-        //     .catch(error => this.setState({loading: false, purchasing: false}))
-
-        
         // sending data by encoding to Checkout component
 
         // 1. encode our state's ingrendts according to 'key' = 'value'
@@ -121,7 +96,8 @@ class BurgerBuilder extends Component {
         for(var i in this.state.ingredents) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredents[i]))
         };
-
+        // # push ingredents to use them on ContactData throuth Checkot
+        queryParams.push('price=' + this.state.price)
         // 2. Join our encoded data
         const queryString = queryParams.join('&');
 

@@ -9,26 +9,29 @@ class Checkout extends Component {
     // fake state for burger component
     // change it later
     state = {
-        ingredents: {
-            salad: 1,
-            meat: 1,
-            cheese: 1,
-            bacon: 1,
-        }
+        ingredents: null,
+        price: 0,
     }
 
 
     // life cycle for grabing the data passed through URL and render them immidately
-    componentDidMount() {
+    componentWillMount() {
         // 1. grab the url where the params are passed
         const queryParams = new URLSearchParams(this.props.location.search);
         // 2. create an empty object and loop through the queryParams and store on it
         let ingredents = {}
-        for( let params of queryParams.entries() ) {
-            ingredents[ params[0] ] = +params[1];
+        let price = 0;
+
+        for( var params of queryParams.entries() ) {
+            if(params[0] === 'price') {
+               price = params[1]
+            } else {
+                ingredents[ params[0] ] = +params[1];
+            }
         };
         // 3. Update our state to render ingrendts
-        this.setState({ingredents})
+        this.setState({ingredents, price})
+
     }
 
 
@@ -48,7 +51,9 @@ class Checkout extends Component {
                     ingredents={this.state.ingredents} 
                     cancel={this.checkoutCancelHandler}
                     continue={this.checkoutContinueHandler}/>
-                <Route path={this.props.match.path + '/contact-data'} component={ContactData} />
+                <Route 
+                    path={this.props.match.path + '/contact-data'}
+                    render={() => (<ContactData ingredents={this.state.ingredents} price={this.state.price} />) }/>
             </div>
         )
     }
