@@ -10,14 +10,11 @@ const checkoutSummery = (props) => {
             <div style={{'width': '100%','margin': 'auto'}}>
                 <Burger ingredents={props.ingredents} />
             </div>
-            <Button btnType="Danger" clicked>Cancel</Button>
-            <Button btnType="Success" clicked>Continue</Button>
+            <Button btnType="Danger" clicked={props.cancel}>Cancel</Button>
+            <Button btnType="Success" clicked={props.continue}>Continue</Button>
         </div>
     )
 };
 
 export default checkoutSummery;
 
-// Todo :-
-// 1. Button's clicked function isn't defined yet
-// Both functionality will be added sooner
