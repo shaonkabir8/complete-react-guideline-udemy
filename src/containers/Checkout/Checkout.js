@@ -16,6 +16,20 @@ class Checkout extends Component {
     }
 
 
+    // life cycle for grabing the data passed through URL and render them immidately
+    componentDidMount() {
+        // 1. grab the url where the params are passed
+        const queryParams = new URLSearchParams(this.props.location.search);
+        // 2. create an empty object and loop through the queryParams and store on it
+        let ingredents = {}
+        for( let params of queryParams.entries() ) {
+            ingredents[ params[0] ] = +params[1];
+        };
+        // 3. Update our state to render ingrendts
+        this.setState({ingredents})
+    }
+
+
     checkoutCancelHandler = () => {
         this.props.history.goBack()
     }

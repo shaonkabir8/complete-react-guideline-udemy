@@ -113,8 +113,23 @@ class BurgerBuilder extends Component {
         //     .then(res => this.setState({loading: false, purchasing: false}))
         //     .catch(error => this.setState({loading: false, purchasing: false}))
 
-        // configrue Routing
-        this.props.history.push('/checkout')
+        
+        // sending data by encoding to Checkout component
+
+        // 1. encode our state's ingrendts according to 'key' = 'value'
+        const queryParams = [];
+        for(var i in this.state.ingredents) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredents[i]))
+        };
+
+        // 2. Join our encoded data
+        const queryString = queryParams.join('&');
+
+        // Chaning url to make routing successfull
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        })
     }
 
     // fetching ingredents data from server
