@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-// import Button from '../../../components/UI/Button/Button';
+import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css'
 import axios from '../../../axios-orders'
-import Spinner from '../../../components/UI/Spinner/Spinner'
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input'
 
 
 class ContactData extends Component {
@@ -24,20 +25,21 @@ class ContactData extends Component {
         // destructure the input property and grab the values 
         const { name, email, street, postalCode, deliveryMethod }  = e.target
         // create an object to send firebase
-        const contactInfo = {
-            name: name.value,
-            email: email.value,
-            address: {
-                street: street.value,
-                postalCode: postalCode.value,
+        const order = {
+            ingredents: this.props.ingredents,
+            price: this.props.price,
+            customer: {
+                name: name.value,
+                email: email.value,
+                address: {
+                    street: street.value,
+                    postalCode: postalCode.value,
+                },
             },
             deliveryMethod: deliveryMethod.value,
-            // sending ingredents and price to firebase for rendering in DOM(Orders Component)
-            ingredents: this.props.ingredents,
-            price: this.props.price
-        };
+        }
         // send data to firebase as 'orders.json'
-        axios.post('/orders.json', contactInfo )
+        axios.post('/orders.json', order )
             .then(res => this.setState({loading: false}))
             .catch(error => this.setState({loading: false}))
 
@@ -47,19 +49,32 @@ class ContactData extends Component {
 
         // initial markup of form when DOM isn't loading
         let form = (
-            <form onSubmit={this.orderHandler}>
-                <input type="text" placeholder="Entery Your Name" name="name" ref={(input) => this.name = input}/>
-                <input type="email" placeholder="Entery Your Email" name="email" ref={(input) => this.email = input}/>
-                <input type="text" placeholder="Entery Your Street" name="street" ref={(input) => this.street = input}/>
-                <input type="text" placeholder="Entery Your PostalCode" name="postalCode" ref={(input) => this.postalCode = input}/>
-                <label htmlFor="deliveryStatus">Delivery Method :</label>
-                <select name="deliveryMethod" ref={(input) => this.deliveryMethod = input}>
-                    <option value="Fastest">Fastest</option>
-                    <option value="Normal">Normal</option>
-                </select>
-                <input type="submit" value="Submit"/>
 
-                {/* <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button> */}
+            // FORM MARKUP
+
+            // <form onSubmit={this.orderHandler}>
+            //     <input type="text" placeholder="Entery Your Name" name="name" ref={(input) => this.name = input}/>
+            //     <input type="email" placeholder="Entery Your Email" name="email" ref={(input) => this.email = input}/>
+            //     <input type="text" placeholder="Entery Your Street" name="street" ref={(input) => this.street = input}/>
+            //     <input type="text" placeholder="Entery Your PostalCode" name="postalCode" ref={(input) => this.postalCode = input}/>
+            //     <label htmlFor="deliveryStatus">Delivery Method :</label>
+            //     <select name="deliveryMethod" ref={(input) => this.deliveryMethod = input}>
+            //         <option value="Fastest">Fastest</option>
+            //         <option value="Normal">Normal</option>
+            //     </select>
+            //     <input type="submit" value="Submit"/>
+
+            //     {/* <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button> */}
+            // </form>
+
+
+            // MAXIMILIAN'S MARKUP FOR FORM
+            <form>
+                <Input inputType="input" type="text" placeholder="Entery Your Name" name="name"/>
+                <Input inputType="input" type="email" placeholder="Entery Your Email" name="email"/>
+                <Input inputType="input" type="text" placeholder="Entery Your Street" name="street"/>
+                <Input inputType="input" type="text" placeholder="Entery Your PostalCode" name="postalCode"/>
+                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
         )
 
@@ -70,7 +85,7 @@ class ContactData extends Component {
 
         return(
             <div className={classes.ContactData}>
-                <h4>Write your details to continue shoping !</h4>
+                <h4>Write your details to continue shoping</h4>
                 {form}
             </div>
         )
