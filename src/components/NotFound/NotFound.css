@@ -1,0 +1,30 @@
+.NotFound {
+    background-image: url('../../assets/images/error.png');
+    background-color: lightcoral;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 93.7vh;
+    position: relative;
+}
+
+.NotFound a {
+    display:block;
+    position: absolute;
+    left: 50%;
+    top:65%;
+    transform: translate(-50%,-50%);
+    color:#333;
+    border:6px solid;
+    text-decoration: none;
+    padding: 6px 20px;
+    font-weight: bold;
+    border-radius:2px;
+    border-image-source: linear-gradient(45deg, rgb(0,143,104), rgb(241, 138, 4));
+    border-image-slice: 1;
+}
+
+.NotFound a:hover {
+    border-image: conic-gradient( rgb(247, 162, 4), magenta, rgb(4, 214, 241)) 1;
+    transition: .2s linear;
+}
