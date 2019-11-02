@@ -70,10 +70,10 @@ class ContactData extends Component {
 
             // MAXIMILIAN'S MARKUP FOR FORM
             <form>
-                <Input inputType="input" type="text" placeholder="Entery Your Name" name="name"/>
-                <Input inputType="input" type="email" placeholder="Entery Your Email" name="email"/>
-                <Input inputType="input" type="text" placeholder="Entery Your Street" name="street"/>
-                <Input inputType="input" type="text" placeholder="Entery Your PostalCode" name="postalCode"/>
+                <Input inputtype="input" type="text" placeholder="Entery Your Name" name="name"/>
+                <Input inputtype="input" type="email" placeholder="Entery Your Email" name="email"/>
+                <Input inputtype="input" type="text" placeholder="Entery Your Street" name="street"/>
+                <Input inputtype="input" type="text" placeholder="Entery Your PostalCode" name="postalCode"/>
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
         )

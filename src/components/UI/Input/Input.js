@@ -7,7 +7,7 @@ const input = (props) => {
     let inputElement = null;
 
     // Check input type 
-    switch (props.inputType) {
+    switch (props.inputtype) {
         case (' input '):
             inputElement = <input className={classes.InputElement} {...props}/>
             break;
