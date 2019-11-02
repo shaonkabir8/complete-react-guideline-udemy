@@ -32,6 +32,9 @@ class ContactData extends Component {
                 postalCode: postalCode.value,
             },
             deliveryMethod: deliveryMethod.value,
+            // sending ingredents and price to firebase for rendering in DOM(Orders Component)
+            ingredents: this.props.ingredents,
+            price: this.props.price
         };
         // send data to firebase as 'orders.json'
         axios.post('/orders.json', contactInfo )
