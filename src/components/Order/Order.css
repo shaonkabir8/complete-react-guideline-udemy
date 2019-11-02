@@ -1,0 +1,14 @@
+.Order {
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    padding:15px;
+    box-sizing: border-box;
+    width:80%;
+    margin:auto;
+}
+
+@media (max-width: 600px) {
+    .Order {
+        width:70%;
+    }
+}

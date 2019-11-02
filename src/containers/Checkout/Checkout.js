@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import CheckoutSummery from '../../components/Burger/CheckoutSummery/CheckoutSummery';
+import CheckoutSummery from '../../components/Order/CheckoutSummery/CheckoutSummery';
 import ContactData from '../Checkout/ContactData/ContactData';
 
 
